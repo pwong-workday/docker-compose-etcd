@@ -1,11 +1,16 @@
-version: '2'
+version: '3'
 services:
+  hyperkube:
+    image: k8s.gcr.io/hyperkube:v1.10.13
+    volumes:
+      - ./myaudit:/myaudit
+    command: /bin/bash -c "sleep infinity"
   etcd0:
     image: quay.io/coreos/etcd
     ports:
       - 2379
     volumes:
-      - etcd0:/etcd_data
+      - ./data/etcd0:/etcd_data
     command:
       - /usr/local/bin/etcd
       - -name
@@ -27,7 +32,7 @@ services:
     ports:
       - 2379
     volumes:
-      - etcd1:/etcd_data
+      - ./data/etcd1:/etcd_data
     command:
       - /usr/local/bin/etcd
       - -name
@@ -49,7 +54,7 @@ services:
     ports:
       - 2379
     volumes:
-      - etcd2:/etcd_data
+      - ./data/etcd2:/etcd_data
     command:
       - /usr/local/bin/etcd
       - -name
@@ -75,8 +80,3 @@ services:
       ETCD_PORT: 2379
     depends_on:
       - etcd0
-
-volumes:
-  etcd0:
-  etcd1:
-  etcd2:

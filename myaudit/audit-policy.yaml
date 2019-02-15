@@ -1,0 +1,8 @@
+# This probably logs too much
+# Hence the need to test changes to it
+
+# Log all requests at the Metadata level.
+apiVersion: audit.k8s.io/v1
+kind: Policy
+rules:
+- level: Metadata
